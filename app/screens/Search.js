@@ -1,38 +1,36 @@
-import {STRINGS, CATEGORIES, REFS, FONTS, KEYS, ALIGNMENTS, Images, COLORS, ICONS} from '../assets/constants.js';
-import React, {Component} from 'react';
+import {STRINGS, REFS, COLORS, ICONS} from '../assets/constants.js';
+import React, {Component, useState, useEffect} from 'react';
 import {
     View,
-    Text,
-    Dimensions,
-    RefreshControl,
     StatusBar,
     ActivityIndicator,
-    NetInfo,
     FlatList,
-    TouchableOpacity,
-    SectionList,
     TextInput,
-    Image
+    Text,
+    Image,
+    Dimensions
 } from 'react-native';
-import Drawer from 'react-native-drawer'
+import WPAPI from "wpapi";
+import SearchBar from 'react-native-elements'
 
 import {NavigationActions} from 'react-navigation';
+import { formatAuthors, getThumbnailURL, formatDate } from './common/newsfeed-item.js';
 
 //Components for this app imports
-import Header from './common/header';
 import NewsFeedItem from './common/newsfeed-item';
-import Placeholder from './common/placeholder';
 import { Ionicons } from '@expo/vector-icons';
 import _ from 'lodash';
+import Header from './common/header';
 
 //Styles for the page
 import styles from './styles/search';
 
 import * as Amplitude from 'expo-analytics-amplitude';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const amplitude = Amplitude.initialize(KEYS.AMPLITUDE_API);
-const selectedCategory = STRINGS.FEATURED_HEADLINES; //The currently selected category
-
+// const amplitude = Amplitude.initialize(KEYS.AMPLITUDE_API);
+// const selectedCategory = STRINGS.FEATURED_HEADLINES; //The currently selected category
+const { width, height } = Dimensions.get('window'); //Dimensions of the current device screen
 export default class Search extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +42,12 @@ export default class Search extends Component {
             page: 1,
             posts: [],
             hashed: {},
-            allIsHere: false
+            allIsHere: false,
+            item: 'ofvdhiufh',
+            searchText: "",
+            selectedId: -1,
+            data: [],
+            filteredData: []
         };
         // this.data = []; //A list of all current data
         this.currPosts = {}; //A hash of all current posts
@@ -56,19 +59,52 @@ export default class Search extends Component {
         this._renderRow = this._renderRow.bind(this); //A function used by the listView to render each row
     }
 
-    //Given data, it passes it to Post view
+    // Given data, it passes it to Post view
     goToPost(data) {
       this.props.navigation.navigate(STRINGS.POST, { ...data });
     }
 
-    componentDidMount() {
-      this.refs.textInput.focus();
+    goBack() {
+      this.props.navigation.goBack();
+    }
+
+    async componentDidMount() {
+      // this.refs.textInput.focus();
       // console.log('hihi');
       // tracker.setUser('12345678');
      // log an event
      // Amplitude.logEvent(STRINGS.APP_OPENED);
     //  console.log("Logged");
+
+  //   let data = await fetch('https://jsonplaceholder.typicode.com/posts')
+  //   .then(response => response.json());
+
+  // this.setState({data: data});
+  var WPAPI = require('wpapi');
+  var wp = new WPAPI({ endpoint: 'http://wp.stanforddaily.com/wp-json' });
+      wp.posts().embed().get()
+      .then( posts => {
+        this.setState({data: posts})
+      })
+
     }
+
+    search = (searchText) => {
+
+      this.setState({searchText: searchText});
+      // let filteredData = this.state.data.filter(function (item) {
+      //   return item.id == searchText || item.title.toUpperCase().includes(searchText.toUpperCase());
+      // });
+  
+      // this.setState({filteredData: filteredData});
+      var WPAPI = require('wpapi');
+      var wp = new WPAPI({ endpoint: 'http://wp.stanforddaily.com/wp-json' });
+      wp.posts().search(searchText).embed().get()
+      .then( posts => { 
+        this.setState({filteredData: posts})
+      } );
+    };
+
 
     //Sends the fetch request, populates data with the new articles and alerts listView about potential change
     //Specific to category articles
@@ -143,7 +179,7 @@ export default class Search extends Component {
     }
     return null;
   }
-
+  
   //Required ReactNative function
   //For this screen we render
   /* <View for the page>
@@ -152,56 +188,44 @@ export default class Search extends Component {
      <MenuContext states that we will use the Menu component>
      <ListView for the articles>
   */
+ 
   render() {
+
+    const renderItem = ({item}) => (
+      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate(STRINGS.POST, { postID: item.id })}>
+          <View style={{flexDirection: 'column'}}>
+                          <View style={{flexDirection: 'row', width: width}}>
+                              {item._embedded['wp:featuredmedia'][0].source_url && ( // This line is super glitchy.
+                                  <View style={{padding: 10}}>
+                                      <Image resizeMode={'cover'} source={{ uri: item._embedded['wp:featuredmedia'][0].source_url }} style={{width: width/3, height: 3/4 * width/3}} borderRadius={8} />
+                                  </View>)
+                              }
+                              <View style={{flexShrink: 1}}>
+                                  <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                                      <View>
+                                          <Text style={styles.titleContainer}>{item.title.rendered}</Text>
+                                          {/* <Text style={{ fontSize: 60*(1/2)^item.postTitle.split(' ').length }}>{item.postTitle.length}</Text> */}
+                                          
+                                          <Text style={styles.author}> {this.state.author}</Text>
+                                      </View>
+                                  </View>
+                              </View>
+                          </View>
+                      </View>
+      </TouchableWithoutFeedback>
+  )
+
     return (
-      <View style={{flex: 1, alignItems: 'center'}}>
-        <View style={styles.header}>
-          <View style={styles.close}/>
-          <View style={[styles.textInputWrapper,{backgroundColor: this.state.focusColor, borderColor: this.state.focusColor}]}>
-            <Ionicons name={ICONS.SEARCH} size={20} style={{backgroundColor: 'rgba(0,0,0,0)'}} color={COLORS.DARK_GRAY}/>
-            <TextInput
-              ref={'textInput'}
-              style={[styles.textInput,{backgroundColor: this.state.focusColor, borderColor: this.state.focusColor}]}
-              placeholder={STRINGS.SEARCH}
-              returnKeyType={'search'}
-              autoCapitalize={'none'}
-              autoCorrect={false}
-              placeholderTextColor={COLORS.DARK_GRAY}
-              selectionColor={COLORS.CARDINAL}
-              onFocus={() => this.setState({focusColor: COLORS.WHITE})}
-              onEndEditing={() => this.setState({focusColor: COLORS.PLACEHOLDER_LIGHT})}
-              onChangeText={(text) => {
-                this.setState({input: text, loading: false, page: 1, posts: [], hashed: {}, allIsHere: false}, () => {
-                  this.fetchDataIsBusy = false;
-                  if(text.length === 0) return;
-                  this.fetchData();
-                }
-                );
-              }}
-            />
-          </View>
-          <TouchableOpacity onPress={() => this.props.navigation.dispatch(NavigationActions.back())}>
-            <Ionicons name={ICONS.CLOSE} style={{width: 40}} size={40} color={COLORS.WHITE}/>
-          </TouchableOpacity>
-        </View>
-        <View ref={REFS.VIEW} style={{flex: 1, backgroundColor:COLORS.GHOST_WHITE}}>
-        <StatusBar
-          ref={REFS.STATUS_BAR}
-          barStyle={STRINGS.DARK_CONTENT}
-        />
-        <FlatList
-            ref={REFS.LIST}
-            removeClippedSubviews={false}
-            disableVirtualization={true}
-            keyExtractor={item => item.key}
-            onEndReached={this.loadMore.bind(this)}
-            data={this.state.posts}
-            renderItem={this._renderRow}
-            renderSectionHeader={() => this.renderSectionHeader()}
-            ListFooterComponent={() => {if(this.state.input.length !== 0 && !this.state.allIsHere) return (<ActivityIndicator style={styles.loadingIndicator}/>); return null;}}
-            contentContainerStyle={styles.list}
-        />
-        </View>
+      <View>
+        <Header searchHandler={() => console.log("Search")} value={this.state.searchText} onChangeText={this.search} goBack={ () => this.goBack()} />
+        {/* <Text>{JSON.stringify(this.state.filteredData[0])}</Text> */}
+          <FlatList
+              data={this.state.filteredData && this.state.filteredData.length > 0 ? this.state.filteredData : this.state.data}
+              renderItem={renderItem}
+          />
+          
+          
+          
       </View>
     )
   }

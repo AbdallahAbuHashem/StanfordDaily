@@ -1,6 +1,6 @@
 import WPAPI from "wpapi";
 import tsdJson from "./tsd-json.json";
-import { STRINGS}  from '../assets/constants.js';
+import { STRINGS }  from '../assets/constants.js';
 
 const wp = new WPAPI({
   endpoint: `${STRINGS.WP_URL}/wp-json`,
@@ -10,7 +10,7 @@ const wpTsdJson = wp.namespace("tsd/json/v1");
 
 export async function getHomeAsync() {
   return wpTsdJson
-    .home();
+    ['home-mobile']();
 }
 
 export async function getHomeMoreAsync(

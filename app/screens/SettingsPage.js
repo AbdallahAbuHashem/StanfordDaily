@@ -1,36 +1,17 @@
-import { STRINGS, CATEGORIES, REFS, KEYS, ALIGNMENTS, MARGINS, FONTS, FONT_SIZES, COLORS, PN_RECEIVER_GROUPS } from '../assets/constants.js';
+import { MARGINS, FONTS, FONT_SIZES, COLORS, PN_RECEIVER_GROUPS } from '../assets/constants.js';
 import React, { Component } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Modal from "react-native-modal"
-import ToggleSwitch from 'toggle-switch-react-native'
 import {
-    Alert,
-    Image, 
     Platform,
     View,
     Text,
-    Dimensions,
-    RefreshControl,
-    StatusBar,
-    ActivityIndicator,
-    NetInfo,
-    FlatList,
     TouchableOpacity,
-    TouchableHighlight,
     Switch,
-    SectionList
 } from 'react-native';
 import _ from 'lodash';
 
-import * as Amplitude from 'expo-analytics-amplitude';
 import { isBeingNotified, addNotificationSetting, removeNotificationSetting } from './FollowInfoStorage.js';
-
-const amplitude = Amplitude.initialize(KEYS.AMPLITUDE_API);
-
-//A map between categories names and their codes
-const {width, height} = Dimensions.get('window');
-var selectedCategory = STRINGS.FEATURED_HEADLINES; //The currently selected category
-
 
 const styles = {
   listItem: { 

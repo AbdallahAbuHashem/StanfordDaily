@@ -3,20 +3,18 @@
  */
 import React, {Component} from 'react';
 import {
-    Animated,
     View,
     Text,
-    TextInput,
-    StyleSheet,
     Image,
     TouchableOpacity,
-    Dimensions,
-    Share
+    Share,
+    TextInput
 } from 'react-native';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
 import { Ionicons } from '@expo/vector-icons';
 import {REFS, ICONS, Images, COLORS, ALIGNMENTS, STRINGS} from '../../assets/constants.js';
 import styles from '../styles/header.js';
+import { SearchBar } from 'react-native-elements';
 // import ActivityView from 'react-native-activity-view';
 
 export default class Header extends Component {
@@ -80,17 +78,27 @@ export default class Header extends Component {
                       </View>
                     </TouchableOpacity>
                   )}
-                  {this.props.title === undefined && <Image source={Images.DAILY_FULL} resizeMode='contain' style={styles.title}/>}
-                  {this.props.title !== undefined && (
+                  {this.props.title === undefined && this.props.searchHandler === undefined && <Image source={Images.DAILY_FULL} resizeMode='contain' style={styles.title}/>}
+                  {this.props.title !== undefined && this.props.searchHandler === undefined && (
                     <View style={styles.title}>
                       <Text numberOfLines={1} ellipsizeMode={ALIGNMENTS.MIDDLE} style={styles.wordsTitle}>
                         {this.props.title}
                       </Text>
                     </View>)
                   }
+                  {this.props.searchHandler !== undefined && (
+                        <SearchBar
+                        placeholder={"Search"}
+                        containerStyle={styles.searchContainer}
+                        lightTheme
+                        onChangeText={this.props.onChangeText}
+                        value={this.props.value}
+                        autoCorrect={false}
+                         />
+                  )}
 
                   {this.props.toProfile ===  undefined &&
-                    this.props.searchHandler ===  undefined &&
+                    this.props.searchNavigator ===  undefined &&
                     this.props.share === undefined &&
                     <View style={styles.leftButton}/>
                   }
@@ -110,8 +118,8 @@ export default class Header extends Component {
                       </View>
                     </TouchableOpacity>
                   )}
-                  {this.props.searchHandler !== undefined && (
-                    <TouchableOpacity onPress={() => this.props.searchHandler()}>
+                  {this.props.searchNavigator !== undefined && (
+                    <TouchableOpacity onPress={() => this.props.searchNavigator()}>
                       <View style={styles.rightButton}>
                         <Ionicons name={ICONS.SEARCH} size={32} color={COLORS.BLACK}/>
                       </View>

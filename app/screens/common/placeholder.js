@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {
     View,
-    Text,
-    Image,
     StyleSheet,
     Dimensions,
-    TouchableOpacity,
     Animated
 } from 'react-native';
 // import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';

@@ -1,4 +1,4 @@
-import {AsyncStorage} from "react-native"
+import { AsyncStorage } from "react-native"
 import { STRINGS } from '../assets/constants.js'
 import { Notifications } from "expo";
 

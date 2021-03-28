@@ -15,18 +15,13 @@
       ],
       "_links": { "self": "https://www.stanforddaily.com/wp-json/tsd/json/v1" }
     },
-    "/tsd/json/v1/home": {
+    "/tsd/json/v1/home-mobile": {
       "namespace": "tsd/json/v1",
       "methods": ["GET"],
       "endpoints": [{ "methods": ["GET"], "args": [] }],
       "_links": {
-        "self": "https://www.stanforddaily.com/wp-json/tsd/json/v1/home"
+        "self": "https://www.stanforddaily.com/wp-json/tsd/json/v1/home-mobile"
       }
-    },
-    "/tsd/json/v1/home/more/(?P<extraPageNumber>\\d+)": {
-      "namespace": "tsd/json/v1",
-      "methods": ["GET"],
-      "endpoints": [{ "methods": ["GET"], "args": [] }]
     },
     "/tsd/json/v1/posts/(?P<postYear>\\d{4})/(?P<postMonth>\\d{2})/(?P<postDay>\\d{2})/(?P<postSlug>[\\S]+)": {
       "namespace": "tsd/json/v1",

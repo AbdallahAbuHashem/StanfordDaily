@@ -1,6 +1,4 @@
-import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-import {STRINGS} from '../assets/constants';
 
 export async function registerForPushNotificationsAsync() {
   const { status: existingStatus } = await Permissions.getAsync(

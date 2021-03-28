@@ -1,28 +1,17 @@
 import React from 'react-native';
-const {StyleSheet, Dimensions, Platform, PixelRatio} = React;
+const {StyleSheet, Dimensions} = React;
 const {width, height} = Dimensions.get('window');
 //width = width <= height ? width : height;
 import {COLORS, FONTS, ALIGNMENTS, MARGINS, HEIGHTS, FONT_SIZES, STRINGS} from '../../assets/constants.js';
-
-const scale = width/320
-
-export function normalize(size) {
-  const newSize = size * scale 
-  if (Platform.OS === 'ios') {
-    return Math.round(PixelRatio.roundToNearestPixel(newSize))
-  } else {
-    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
-  }
-}
 
 const styles = ({
     content: {
       backgroundColor: COLORS.NEAR_WHITE,
       width: '100%',
-      paddingTop: 12,
+      paddingVertical: 2,
     },
     dateAndAuthor: {
-      flexDirection: ALIGNMENTS.ROW,
+      flexDirection: ALIGNMENTS.COLUMN,
       justifyContent: ALIGNMENTS.SPACE_BETWEEN,
       marginTop: MARGINS.DEFAULT_MARGIN,
       marginHorizontal: MARGINS.ARTICLE_SIDES,
@@ -30,28 +19,29 @@ const styles = ({
 
     author: {
       fontFamily: FONTS.OPEN_SANS,
-      fontSize: FONT_SIZES.DEFAULT_SMALL,
+      fontSize: 10,
       marginLeft: -2,
       color: COLORS.DARK_GRAY,
-      textTransform: 'uppercase'
     },
 
     date: {
       fontFamily: FONTS.OPEN_SANS,
-      fontSize: FONT_SIZES.DEFAULT_SMALL,
+      fontSize: 10,
       color: COLORS.DARK_GRAY,
-      textTransform: 'uppercase'
+    },
+
+    header: {
+        fontFamily: FONTS.PT_SERIF_BOLD,
+        fontSize: FONT_SIZES.DEFAULT_LARGE + 10,
     },
 
     titleFont: {
-      fontFamily: FONTS.PT_SERIF_BOLD,
-      fontSize: FONT_SIZES.DEFAULT_LARGE,
+      fontFamily: FONTS.PT_SERIF,
+      fontSize: FONT_SIZES.DEFAULT_MEDIUM_SMALL,
     },
     titleContainer: {
       marginTop: MARGINS.DEFAULT_SMALL_MARGIN,
-      marginHorizontal: MARGINS.ARTICLE_SIDES,
-      fontFamily: FONTS.PT_SERIF_BOLD,
-      fontSize: normalize(FONT_SIZES.DEFAULT_LARGE)
+      marginHorizontal: MARGINS.ARTICLE_SIDES
     },
 
     descriptionContainer: {
@@ -64,7 +54,7 @@ const styles = ({
 
     image: {
       width: width - (2 * MARGINS.ARTICLE_SIDES),
-      height: width/2.125,
+      height: width/2,
       marginHorizontal: MARGINS.ARTICLE_SIDES,
       marginBottom: MARGINS.DEFAULT_MARGIN
     },
@@ -106,6 +96,17 @@ const styles = ({
       marginTop: 2,
       opacity: 0.80,
     },
+    more: {
+      backgroundColor: COLORS.LIGHT_GRAY,
+      marginTop: MARGINS.DEFAULT_SMALL_MARGIN,
+      marginHorizontal: MARGINS.ARTICLE_SIDES,
+      justifyContent: 'center',
+      borderRadius: 10
+    },
+    seeAll: {
+      paddingHorizontal: 15,
+      fontFamily: FONTS.PT_SERIF_BOLD
+    }
 })
 
 module.exports = styles

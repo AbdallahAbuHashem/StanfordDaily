@@ -14,6 +14,7 @@ const STRINGS = {
   PLACEHOLDER: "placeholder",
   POST: "Post",
   POSTS: "posts",
+  CATEGORY: "Category",
   HASHED: "hashed",
   REQUEST_SMALL_PAGE: "https://www.stanforddaily.com/wp-json/wp/v2/posts/?_embed&per_page=3&page=",
   REQUEST_LARGE_PAGE: "https://www.stanforddaily.com/wp-json/wp/v2/posts/?_embed&per_page=10&page=",
@@ -48,6 +49,7 @@ const STRINGS = {
   UNDEFINED: "undefined",
   NEWEST_TO_OLDEST: "sortDate",
   POSTS_BODIES: "postsBodies",
+  AUTHOR: "Author",
   AUTHORS: "Authors",
   CHATTER: "Chatter",
   SIGNED_IN: "signedIn",
@@ -99,7 +101,7 @@ const PATHS = {
   PROFILE: "Profile.js"
 }
 
-// Order in which sections show up on the home page (keys in https://wp.stanforddaily.com/wp-json/tsd/json/v1/home)
+// Order in which sections show up on the home page (keys in https://wp.stanforddaily.com/wp-json/tsd/json/v1/home-mobile)
 const HOME_SECTIONS = ["featured", "news", "sports", "opinions", "theGrind", "artsAndLife", "cartoons", "satire", "moreFromTheDaily"]
 
 const CATEGORIES = [
@@ -158,7 +160,8 @@ const COLORS = {
   PLACEHOLDER_LIGHT: "#F0F0F0",
   PLACEHOLDER_DARK: "#E5E5E5",
   CARDINAL: "#94171C",
-  GHOST_WHITE: "ghostwhite"
+  GHOST_WHITE: "ghostwhite",
+  SALMON: "#FEF2F1"
 };
 
 const ALIGNMENTS = {
@@ -197,7 +200,7 @@ const FONT_SIZES = {
 const MARGINS = {
   DEFAULT_SMALL_MARGIN: 4,
   DEFAULT_MARGIN: 8,
-  ARTICLE_SIDES: 16,
+  ARTICLE_SIDES: 12,
   DEFAULT_LARGE_MARGIN: 22,
   NORMAL_HEADER_MARGINS: 13,
   IPHONEX_HEADER_ADDITION: 24

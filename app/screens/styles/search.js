@@ -23,25 +23,6 @@ const styles= StyleSheet.create({
       backgroundColor: COLORS.CARDINAL,
       paddingTop: 12
     },
-    textInput: {
-      fontFamily: FONTS.HNEUE,
-      fontSize: 14,
-      width: '90%',
-      height: 26,
-      color: COLORS.BLACK,
-      borderRadius: 6,
-      paddingLeft: MARGINS.DEFAULT_MARGIN,
-      paddingRight: MARGINS.DEFAULT_MARGIN
-    },
-    textInputWrapper: {
-      flexDirection: ALIGNMENTS.ROW,
-      justifyContent: ALIGNMENTS.CENTER,
-      alignItems: ALIGNMENTS.CENTER,
-      width: '70%',
-      height: 28,
-      borderWidth: 1,
-      borderRadius: 6,
-    },
     close: {
       width: 40,
       height: 20,
@@ -49,7 +30,17 @@ const styles= StyleSheet.create({
     },
     list: {
       width: width
-    }
+    },
+    titleFont: {
+      fontFamily: FONTS.PT_SERIF_BOLD,
+      fontSize: FONT_SIZES.DEFAULT_LARGE,
+    },
+    titleContainer: {
+      marginTop: MARGINS.DEFAULT_SMALL_MARGIN,
+      marginHorizontal: MARGINS.ARTICLE_SIDES,
+      fontFamily: FONTS.PT_SERIF_BOLD,
+      fontSize: FONT_SIZES.DEFAULT_LARGE
+    },
 })
 
 module.exports = styles

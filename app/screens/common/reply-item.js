@@ -2,23 +2,17 @@
  * Created by ggoma on 12/17/16.
  */
  import React, {Component} from 'react';
- import ReactNative from 'react-native';
  import firebase from 'firebase';
  import moment from 'moment';
  import styles from '../styles/replyitem.js';
  moment().format();
 
  import {
-   AppRegistry,
-   ListView,
-   StyleSheet,
    Text,
    View,
    TouchableHighlight,
-   AlertIOS,
    Image,
    TouchableOpacity,
-   Dimensions
  } from 'react-native';
 
 import {STRINGS, Images} from '../../assets/constants.js'; //Constants

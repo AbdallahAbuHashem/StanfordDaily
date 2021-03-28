@@ -42,6 +42,28 @@ const styles = StyleSheet.create({
       tintColor: COLORS.WHITE,
       width: 20,
       height: 23
+    },
+    textInput: {
+      fontFamily: FONTS.HNEUE,
+      fontSize: 14,
+      width: '90%',
+      height: 26,
+      color: COLORS.BLACK,
+      borderRadius: 6,
+      paddingLeft: MARGINS.DEFAULT_MARGIN,
+      paddingRight: MARGINS.DEFAULT_MARGIN,
+    },
+    searchContainer: {
+      width: width*4/5
+    },
+    textInputWrapper: {
+      flexDirection: ALIGNMENTS.ROW,
+      justifyContent: ALIGNMENTS.CENTER,
+      alignItems: ALIGNMENTS.CENTER,
+      width: '80%',
+      height: 28,
+      borderWidth: 1,
+      borderRadius: 6,
     }
 })
 

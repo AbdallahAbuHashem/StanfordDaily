@@ -5,14 +5,10 @@
  import moment from 'moment';
 
  import {
-   AppRegistry,
-   StyleSheet,
    Text,
    View,
    TouchableHighlight,
-   AlertIOS,
    Image,
-   TouchableOpacity,
    TouchableWithoutFeedback
  } from 'react-native';
 

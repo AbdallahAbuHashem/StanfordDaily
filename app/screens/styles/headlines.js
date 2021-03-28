@@ -65,6 +65,34 @@ const styles= StyleSheet.create({
       fontFamily:FONTS.CENTURY,
       fontSize:25,
       flex: 2,
+    },
+    header: {
+      fontFamily: FONTS.PT_SERIF_BOLD,
+      fontSize: FONT_SIZES.DEFAULT_LARGE + 10,
+    },
+    satire: {
+      fontFamily: FONTS.PT_SERIF_BOLD,
+      fontSize: FONT_SIZES.DEFAULT_LARGE + 10,
+      color: COLORS.NEAR_WHITE
+    },
+    titleFont: {
+      fontFamily: FONTS.PT_SERIF_BOLD,
+      fontSize: FONT_SIZES.DEFAULT_MEDIUM_SMALL,
+    },
+    titleContainer: {
+      marginTop: MARGINS.DEFAULT_SMALL_MARGIN,
+      marginHorizontal: MARGINS.ARTICLE_SIDES
+    },
+    more: {
+      backgroundColor: COLORS.LIGHT_GRAY,
+      marginTop: MARGINS.DEFAULT_SMALL_MARGIN,
+      marginHorizontal: MARGINS.ARTICLE_SIDES,
+      justifyContent: 'center',
+      borderRadius: 10
+    },
+    seeAll: {
+      paddingHorizontal: 15,
+      fontFamily: FONTS.PT_SERIF_BOLD
     }
 })
 
